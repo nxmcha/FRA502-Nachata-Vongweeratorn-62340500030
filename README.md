@@ -1,29 +1,20 @@
 
-# diff_drive_bot
+# FRA502_Nachata_Vongweeratorn
 
-This ROS package implements SLAM on a 2 wheeled differential drive robot to map an unknown environment. A joystick is used to teleoperate the robot in Gazebo. The map generated is then used for autonomous navigation using the ROS Navigation stack.
-
-[Demo Video](https://youtu.be/jbd2p1llsqA) \
-[Blog Post](https://devanshdhrafani.github.io/blog/2020/11/01/diffdrive.html)
 
 ## Installation
 1. Build package from source: navigate to the source folder of your catkin workspace and build this package using:
 	```
-	$ git clone https://github.com/devanshdhrafani/diff_drive_bot.git
+	$ git clone https://github.com/nxmcha/FRA502-Nachata-Vongweeratorn-62340500030.git
 	$ cd ..
 	$ catkin_make
 	```
 2. Install Required dependencies:
 	```
 	$ sudo apt-get install ros-melodic-dwa-local-planner
-	$ sudo apt-get install ros-melodic-joy
 	```
 
 ## Simultaneous Localization And Mapping (SLAM)
-
-The package uses [slam_gmapping](http://wiki.ros.org/slam_gmapping) to map the environment. For the purpose of this demonstration, we use the Gazebo simulation environment to move around the robot. 
-
-![SLAM Screenshot](https://github.com/devanshdhrafani/diff_drive_bot/raw/master/screenshots/slam_gmapping_resized.gif)
 
 1. Load the robot in the Gazebo environment. Default model is the turtlebot3_house. You can change this from ```/worlds/mybot.world```. To continue with default model:
 	```
@@ -33,11 +24,8 @@ The package uses [slam_gmapping](http://wiki.ros.org/slam_gmapping) to map the e
 	```
 	$ roslaunch diff_drive_bot gmapping.launch
 	```
-3. Move the robot around. If you have a Joystick, use:
+3. Move the robot around. 
 	 ```
-	 $ roslaunch diff_drive_bot joy_teleop_launch.launch
-	 ```
-	 OR 
 	 teleop using keyboard:
 	 ```
 	 $ rosrun diff_drive_bot keyboard_teleop.py 
@@ -50,9 +38,6 @@ The package uses [slam_gmapping](http://wiki.ros.org/slam_gmapping) to map the e
 6. Copy the map file to ```~/diff_drive_bot/maps/``` directory and edit the .yaml file to match the path. 
 	
 ## Autonomous Navigation
-This package uses the [ROS Navigation stack](http://wiki.ros.org/navigation) to autonomously navigate through the map created using gmapping. 
-
-![Navigation](https://raw.githubusercontent.com/devanshdhrafani/diff_drive_bot/master/screenshots/autonomous_navigation.png)
   
 0. To use your generated map, edit ```/launch/amcl_move_base.launch``` and add map .yaml location and name to map_server node launch.
 1. Load the robot in gazebo environment:
@@ -65,19 +50,20 @@ This package uses the [ROS Navigation stack](http://wiki.ros.org/navigation) to 
 	```
 3. In rviz, click on ***2D Pose Estimate*** and set initial pose estimate of the robot.
 4. To move to a goal, click on ***2D Nav Goal*** to set your goal location and pose.  
+## Speech Command
+ 
+1. go to zone 1 จะทำการส่งอาหารให้กับลูกค้า
+2.  เมื่อส่งเสร็จจะกลับไปยังตำแหน่งที่ตั้งหลักของหุ่น
+3. สามารถไปยังโซนได้ทั้งหมด 4 โซน (1,2,3,4)
 
-##  [Optional] Joystick Configuration 
+## Summary
 
-To make it easier to map environments, I added a joystick_teleop node to control the robot movement using my xbox controller. If you are using some other controller, you can easily map your buttons:
+ โปจเจคนี้เริ่มจากการวาด world และ urdf จากนั้นทำการ spawn หุ่นบน world ให้ได้ ต่อมาทำการ gmapping เพื่อทำแผนที่ให้กับหุ่นยนต์เพื่อวางแผนการเดิน จากนั้นทำ amcl 
+และ movebase เพื่อหาตำแหน่งของหุ่นยนต์บนแผนที่และทำการเคลื่อนที่ใน rviz โดยใช้  2d navigation ก่อน และใช้โค้ด .py เพื่อสั่งการเดินจากตำแหน่งปัจจุบันไปยังตำแหน่งที่ต้องการ
+อย่างสุดท้ายใช้ speechrecognition เพื่อทำให้เราสามารถสั่งใช้งานหุ่นยนต์ด้วยเสียงได้
 
-1. Install the ROS [joy](http://wiki.ros.org/joy) package:
-	``` $ sudo apt-get install ros-melodic-joy``` 
-2. Connect your Jotstick to your machine and check if its detected:
-	```	$ ls /dev/input/```
-3. If everything worked, your joystick should show up as jsX. In my case, it showed up as js1.
-4. Go to ```/launch/joy_teleop_launch.launch``` and edit the dev parameter value to ```/dev/input/jsX```.
-5. Open the ```joy_teleop.py``` script in the ```/scripts/``` folder.
-6.  Uncomment the print statements in the ```joyCallback()``` function.
-7. Save and run the script using:
-	```$ roslaunch diff_drive_robot joy_teleop_launch.launch ```
-8. You will see 2 arrays corresponding to the axes and buttons of your Joystick. Press each button/stick and find the index of your controls. Change the ```joy_teleop.py``` script with your respective axes.
+## Problem
+การเคลื่อนที่ของหุ่นยนต์ยังเคลื่อนที่ได้ไม่ดีพอ การปรับค่าใน params ได้ไม่ดี จึงทำให้การเคลื่อนที่ของหุ่นยนต์ไม่คงเส้นคงวา การเลี้ยวยังมีการชนขอบ
+ความยากใน world ที่มีพื้นต่างระดับทำให้การเคลื่อนที่มีความยากขึ้น
+
+Nachata Vongweeratorn
