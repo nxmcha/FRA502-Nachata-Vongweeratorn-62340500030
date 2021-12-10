@@ -17,6 +17,7 @@
 ## Simultaneous Localization And Mapping (SLAM)
 
 1. Load the robot in the Gazebo environment. 
+	```
 	$ roslaunch diff_drive_bot gazebo.launch 
 	```
 2. Launch the **slam_gmapping** node. This will also start **rviz** where you can visualize the map being created:
