@@ -16,8 +16,7 @@
 
 ## Simultaneous Localization And Mapping (SLAM)
 
-1. Load the robot in the Gazebo environment. Default model is the turtlebot3_house. You can change this from ```/worlds/mybot.world```. To continue with default model:
-	```
+1. Load the robot in the Gazebo environment. 
 	$ roslaunch diff_drive_bot gazebo.launch 
 	```
 2. Launch the **slam_gmapping** node. This will also start **rviz** where you can visualize the map being created:
@@ -25,7 +24,7 @@
 	$ roslaunch diff_drive_bot gmapping.launch
 	```
 3. Move the robot around. 
-	 ```
+	 
 	 teleop using keyboard:
 	 ```
 	 $ rosrun diff_drive_bot keyboard_teleop.py 
